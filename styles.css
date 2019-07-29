@@ -1,0 +1,70 @@
+﻿body {
+    font-family: Arial;
+}
+
+em {
+    font-weight: bold;
+    font-style: italic;
+}
+
+.card {
+    height: 419px;
+    width: 300px;
+    display: inline-block;
+    border-style: dashed;
+    border-width: 1px;
+    border-color: black;
+}
+
+.card__element {
+    position: absolute;
+}
+
+.card__element--border-standard {
+    border-style: solid;
+    border-width: 3px;
+    border-color: black;
+}
+
+.card__element--color-red {
+    color: red;
+}
+
+.card__element--color-blue {
+    color: dodgerblue;
+}
+
+.card__clan {
+}
+
+.card__stat {
+    font-size: 27px;
+    text-align: center;
+}
+
+.card__textbox {
+    font-size: 11px;
+}
+
+.card__textbox p {
+    margin-top: 0px;
+    margin-bottom: 8px;
+}
+
+.card__title {
+    font-size: 16px;
+    text-align: center;
+}
+
+.card__traits {
+    font-size: 10px;
+    font-weight: bold;
+    font-style: italic;
+    text-align: center;
+}
+
+.card__type {
+    font-size: 8px;
+    text-align: center;
+    font-variant: small-caps;
+}
