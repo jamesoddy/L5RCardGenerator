@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
@@ -40,5 +40,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="if not exist &quot;$(TargetDir)json&quot; mkdir &quot;$(TargetDir)json&quot;&#xD;&#xA;copy &quot;$(SolutionDir)fiveringsdb-data\json\Label\en.json&quot; &quot;$(TargetDir)json\labels.json&quot;" />
+  </Target>
 
 </Project>
