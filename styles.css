@@ -54,6 +54,7 @@ em {
 .card__title {
     font-size: 16px;
     text-align: center;
+    line-height: 28px;
 }
 
 .card__traits {

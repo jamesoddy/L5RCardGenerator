@@ -1,15 +1,12 @@
-﻿using L5RCardGenerator.LayoutMaps;
+﻿using CoreHtmlToImage;
+using L5RCardGenerator.LayoutMaps;
 using L5RCardGenerator.ValueMaps;
-using PdfSharpCore.Drawing;
-using PdfSharpCore.Drawing.Layout;
-using PdfSharpCore.Pdf;
+using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.PixelFormats;
+using SixLabors.ImageSharp.Processing;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Drawing;
-using System.Drawing.Drawing2D;
-using System.Drawing.Imaging;
-using System.Drawing.Text;
 using System.IO;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -24,8 +21,9 @@ namespace L5RCardGenerator
             CharacterValueMap.UpdateCardFromJson(character1, SampleData.Character1);
 
             var sb = new StringBuilder();
-            sb.Append("<html>");
-            sb.Append($"<style>{File.ReadAllText("styles.css")}</style>");
+            sb.Append("<html><head>");
+            sb.Append($"<meta http-equiv=\"Content-type\" content=\"text/html;charset=utf-8\" /><meta charset=\"utf-8\" />");
+            sb.Append($"<style>{File.ReadAllText("styles.css")}</style></head>");
             sb.Append("<body>");
             GenerateCharacterCardGraphics(sb, character1);
             sb.Append("</body></html>");
@@ -37,6 +35,16 @@ namespace L5RCardGenerator
                 {
                     w.Write(sb.ToString());
                 }
+            }
+            var converter = new HtmlConverter();
+            var bytes = converter.FromHtmlString(sb.ToString(), 300);
+            using (Image<Rgba32> image = Image.Load(bytes))
+            {
+                var ratio = (double)image.Height / image.Width;
+                var width = 300;
+                var height = (int)(ratio * 300);
+                image.Mutate(x => x.Resize(width, height));
+                image.Save("test.jpg");
             }
         }
         
